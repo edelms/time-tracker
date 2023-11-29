@@ -1,0 +1,155 @@
+import { Show } from "solid-js";
+import { TbBookmark, TbCheckbox, TbSquare, TbTrash, TbX } from "solid-icons/tb";
+
+import { WeekSetting } from "@data/week-setting/types";
+import { useWeekSettingStore } from "@data/week-setting/context";
+import { TextInput } from "@controls/TextInput";
+import { Button } from "@controls/Button";
+import { TimeBox } from "@controls/TimeBox";
+import { t } from "@/i18n";
+
+import { localeStrings } from "../../helpers/locale-strings";
+import { DialogHeader } from "../DialogHeader";
+
+type Props = {
+    setting: WeekSetting;
+    onDismiss(): void;
+}
+
+export const WeekSettingForm = (props: Props) => {
+
+    const weekSettingStore = useWeekSettingStore();
+
+    const handleRemove = () => {
+        if (!confirm(t('weeksetting.edit.removeConfirm', { name: props.setting.name }))) return;
+        weekSettingStore().remove(props.setting.id);
+        props.onDismiss();
+    }
+
+    const isDefault = () => weekSettingStore().defaultId() === props.setting.id;
+
+    return (
+        <div class="text-sm">
+
+            <DialogHeader text={t('weeksetting.edit.dialogHeader')}
+                right={
+                    <Button type="button" label={t('form.button.back')} icon={<TbX />} onClick={() => props.onDismiss()} />
+                }
+            />
+
+            <div class="px-3 py-3">
+                <TextInput label={t('form.weeksetting.name.label')}
+                    value={props.setting.name} onChange={x => weekSettingStore().setName(props.setting.id, x)}
+                />
+            </div>
+
+            <div class="mx-3 my-2 border border-neutral-700">
+                <h4 class="bg-neutral-800 px-3 py-2">{t('weeksetting.columns.workdaysGrid')}</h4>
+
+                <div class="divide-y divide-neutral-700">
+                    <div class="flex flex-nowrap gap-2">
+                        <div class="flex-1 px-3 py-2 font-semibold flex items-center">
+                            {t('weeksetting.columns.weekDay')}
+                        </div>
+                        <div class="w-28 px-3 py-2 font-semibold flex items-center justify-center">
+                            {t('weeksetting.columns.isVisible')}
+                        </div>
+                        <div class="w-28 px-3 py-2 font-semibold flex items-center justify-center">
+                            {t('weeksetting.columns.isWOrkDay')}
+                        </div>
+                        <div class="w-40 px-3 py-2 font-semibold flex items-center">
+                            {t('weeksetting.columns.timeQuota')}
+                        </div>
+                    </div>
+
+                    <DayForm setting={props.setting} day={1} />
+                    <DayForm setting={props.setting} day={2} />
+                    <DayForm setting={props.setting} day={3} />
+                    <DayForm setting={props.setting} day={4} />
+                    <DayForm setting={props.setting} day={5} />
+                    <DayForm setting={props.setting} day={6} />
+                    <DayForm setting={props.setting} day={0} />
+                </div>
+            </div>
+
+            <Stats setting={props.setting} />
+
+
+            <div class="flex justify-between items-center px-3 py-2 border-t border-neutral-700">
+                <Button type="button" label={t('form.button.remove')} icon={<TbTrash />} variant="danger" onClick={handleRemove} />
+
+                <Show when={isDefault()}
+                    children={
+                        <span class="text-emerald-500">{t('weeksetting.message.thisIsDefault')}</span>
+                    }
+                    fallback={
+                        <Button variant="success" label={t('form.button.setAsDefault')} icon={<TbBookmark />}
+                            onClick={() => weekSettingStore().setDefault(props.setting.id)}
+                        />
+                    }
+                />
+
+            </div>
+
+
+        </div>
+    );
+}
+
+
+type DayProps = {
+    setting: WeekSetting,
+    day: Day,
+}
+
+const DayForm = (props: DayProps) => {
+
+    const weekSettingStore = useWeekSettingStore();
+
+    const day = () => props.setting.days[props.day];
+
+    const isWorkDay = () => day().timeQuota > 0;
+
+    return (
+        <div class="flex flex-nowrap gap-2">
+            <div class="flex-1 px-3 py-1 flex items-center">
+                {localeStrings().longWeekday[props.day]}
+            </div>
+            <div class="w-28 px-3 py-1 flex items-center justify-center">
+                <input type='checkbox'
+                    checked={props.setting.days[props.day].show}
+                    onchange={e => weekSettingStore().setDayVisibile(props.setting.id, props.day, e.currentTarget.checked)}
+                />
+            </div>
+            <div class="w-28 px-3 py-1 flex items-center justify-center">
+                {isWorkDay()
+                    ? (<TbCheckbox />)
+                    : (<TbSquare />)
+                }
+            </div>
+            <div class="w-40 px-3 py-1">
+                <TimeBox value={day().timeQuota}
+                    onChange={x => weekSettingStore().setDayTimeQuota(props.setting.id, props.day, x)}
+                />
+            </div>
+        </div>
+    );
+}
+
+type StatsProps = {
+    setting: WeekSetting,
+}
+
+const Stats = (props: StatsProps) => {
+
+    const weekSettingStore = useWeekSettingStore();
+
+    return (
+        <div class="text-center text-neutral-400 py-3 flex gap-3 items-center justify-center">
+            <span>{weekSettingStore().calcNumberWorkDays(props.setting)} {t('weeksetting.stats.workDays')}</span>
+            <span class="pl-5">{t('weeksetting.stats.workTime')}:</span>
+            <span>{weekSettingStore().calcWeekHours(props.setting)} {t('weeksetting.stats.hrsPerWeek')}</span>
+            <span>~{weekSettingStore().calcMonthHours(props.setting)} {t('weeksetting.stats.hrsPerMonth')}</span>
+        </div>
+    );
+}
