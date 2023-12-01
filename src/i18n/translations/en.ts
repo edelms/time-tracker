@@ -17,6 +17,7 @@ const dict = {
             record: 'Start live record',
             stopRecord: 'Stop live record',
             projectList: 'Open Project list',
+            dataMgmt: 'Data Management',
         },
 
         day: {
@@ -53,6 +54,31 @@ const dict = {
             dialogHeader: 'Edit Booking',
             removeConfirm: 'Remove this booking?',
         },
+    },
+
+    dataManagement: {
+        dialog: {
+            header: 'Data Management',
+            warning: 'Warning: This can overwrite or remove your data, consider making a backup before executing these operations!'
+        },
+        message: {
+            verifyError: 'Could not verify data, {{error}}',
+            importError: 'Could not import data, {{error}}',
+            importSuccessNoChange: 'Import successful, no data has been changed',
+            importSuccessChanged: 'Import successful, {{changes}} data sets has been changed. Confirm to reload...',
+            enterToRemovePrompt: 'Enter "REMOVE ALL" to continue removing all data.',
+            removeSuccess: 'Data has been cleared, Confirm to reload...',
+        },
+        error: {
+            inputNotArray: 'Input is not an array',
+            rowsNotArray: 'Some rows are not an array',
+            rowsInvalidItemCount: 'Some rows have an invalid item count',
+            keyNotString: 'Key is not a string',
+            invalidKey: 'Some of the rows have an invalid key: {{key}}',
+            selectSingleFile: 'Select one file',
+            selectJsonFile: 'Select a JSON file',
+            openJsonError: 'Could not open JSON file, {{error}}',
+        }
     },
 
     project: {
@@ -134,10 +160,11 @@ const dict = {
             back: 'Back',
             setAsDefault: 'Set as default',
             select: 'Select',
+            backup: 'Backup',
+            restore: 'Restore',
+            clearAll: 'Clear All',
         },
     },
-
-
-
 };
+
 export default dict;

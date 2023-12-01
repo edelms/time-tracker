@@ -1,9 +1,8 @@
 import { Show, createSignal } from 'solid-js';
 import { startOfISOWeek, lastDayOfISOWeek, getISOWeek, format, add } from 'date-fns';
 import { TbHome, TbSettings } from 'solid-icons/tb';
-import { VsDebugStop, VsPlay } from 'solid-icons/vs';
+import { VsDebugStop, VsPlay, VsDatabase, VsArchive } from 'solid-icons/vs';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'solid-icons/io';
-import { BiRegularPackage } from 'solid-icons/bi';
 
 import { t } from '@/i18n';
 import { useRecorderStore } from '@data/recorder/context';
@@ -11,6 +10,7 @@ import { useViewingWeek, useViewingWeekStore } from '@data/week/context-viewing'
 import { Shimmer } from '@/components/Shimmer';
 import { WeekSettingsDialog } from '@/dialogs/week-settings/WeekSettingsDialog';
 import { ProjectsDialog } from '@/dialogs/projects/ProjectsDialog';
+import { DataManagementDialog } from '@/dialogs/data-management/DataManagementDialog';
 
 
 
@@ -37,6 +37,7 @@ export const WeekNavigator = () => {
 
     const [showWeekSettings, setShowWeekSettings] = createSignal(false);
     const [showProjects, setShowProjects] = createSignal(false);
+    const [showDataManagement, setShowDataManagement] = createSignal(false);
 
 
     return (
@@ -84,13 +85,22 @@ export const WeekNavigator = () => {
                     ({formattedStartOfWeek()} - {formattedEndOfWeek()})
                 </span>
 
-                <div class='mx-2'>
+
+                <div class='mx-2 flex items-center gap-2'>
                     <button type='button' title={t('calendar.navigate.projectList')}
                         onclick={() => setShowProjects(true)}
-                        class="flex items-center justify-center rounded-md w-8 h-8 bg-emerald-700 text-white hover:bg-emerald-800"
+                        class="flex items-center justify-center rounded-md w-8 h-8 bg-slate-700 text-white hover:bg-slate-800"
                     >
-                        <BiRegularPackage size={20} />
+                        <VsArchive size={20} />
                     </button>
+
+                    <button type='button' title={t('calendar.navigate.dataMgmt')}
+                        onclick={() => setShowDataManagement(true)}
+                        class="flex items-center justify-center rounded-md w-8 h-8 bg-slate-700 text-white hover:bg-slate-800"
+                    >
+                        <VsDatabase size={20} />
+                    </button>
+
                 </div>
 
                 <button type='button' title={t('calendar.navigate.weekSettings')}
@@ -113,6 +123,8 @@ export const WeekNavigator = () => {
             />
 
             <ProjectsDialog show={showProjects()} onClose={setShowProjects} />
+
+            <DataManagementDialog show={showDataManagement()} onClose={setShowDataManagement} />
         </>
     );
 }
