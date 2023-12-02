@@ -37,26 +37,26 @@ export const BookingGridItem = (props: Props) => {
 
                 <div class="flex items-stretch border-t-4 border-b border-neutral-900/50 bg-neutral-900/10 pr-1">
 
-                    <TimeBox value={props.booking.start}
+                    <TimeBox value={props.booking.start} placeholder={t('booking.label.startTime')}
                         onChange={x => props.dayStore.setBookingStart(props.booking, x)}
                         autofocus={props.isNew}
                     />
                     <span class="flex items-center bg-neutral-900/50">-</span>
-                    <TimeBox value={props.booking.end}
+                    <TimeBox value={props.booking.end} placeholder={t('booking.label.endTime')}
                         onChange={x => props.dayStore.setBookingEnd(props.booking, x)}
                     />
 
                     <ProjectPicker projectKey={props.booking.projectKey}
                         onChange={x => props.dayStore.setBookingProjectKey(props.booking, x)}
-                        class="flex-1 py-2 pl-2 pr-1"
+                        class="flex-1 pl-2 pr-1"
                     />
 
                     <span class="flex items-center justify-end">
                         <button type='button' onclick={() => setShowMenuDialog(true)}
                             title={t('form.alt.more')}
-                            class="text-slate-300 hover:bg-white/20 p-1 rounded-md"
+                            class="text-slate-400 hover:bg-white/20 w-8 h-8 m-2 rounded-md flex items-center justify-center"
                         >
-                            <FiMoreHorizontal size={12} />
+                            <FiMoreHorizontal size={16} />
                         </button>
                     </span>
 
