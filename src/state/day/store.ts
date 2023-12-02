@@ -19,7 +19,7 @@ type DayStore = {
 
 
 
-export const createDayStore = async (dayDate: Date) => {
+export const createDayStore = async (dayDate: Date, ensureWeekIsSaved: () => void) => {
     const id = dayIdentifier(dayDate);
 
     const weekSettingStore = useWeekSettingStore();
@@ -95,6 +95,7 @@ export const createDayStore = async (dayDate: Date) => {
         },
 
         addBooking: (data) => {
+            ensureWeekIsSaved();
 
             const endOfLastBooking =
                 store.bookings

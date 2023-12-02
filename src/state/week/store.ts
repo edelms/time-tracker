@@ -17,7 +17,6 @@ type WeekStore = {
 }
 
 
-
 export const createWeekStore = async (weekDate: Date) => {
 
     const weekSettingStore = useWeekSettingStore();
@@ -34,12 +33,19 @@ export const createWeekStore = async (weekDate: Date) => {
     }
 
 
+    let weekNeedsToSave = true;
+    const ensureWeekIsSaved = () => {
+        if (weekNeedsToSave) {
+            setTriggerUpdate(x => x + 1);
+        }
+    }
+
     // intialize day stores
     const dayPromises = eachDayOfInterval({
         start: startOfWeek(weekDate, { weekStartsOn: FIRST_DAY_OF_WEEK }),
         end: endOfWeek(weekDate, { weekStartsOn: FIRST_DAY_OF_WEEK })
     })
-        .map(day => createDayStore(day));
+        .map(day => createDayStore(day, ensureWeekIsSaved));
 
 
 
@@ -51,14 +57,17 @@ export const createWeekStore = async (weekDate: Date) => {
         triggerUpdate,
         (_) => {
             set(dbKey, JSON.parse(JSON.stringify(store)), idbStore);
+            weekNeedsToSave = false;
         },
         { defer: true }
     ));
 
     // Load saved data
     const storedData = await get<WeekStore>(dbKey, idbStore);
-    if (typeof storedData?.weekSettingId !== 'undefined')
+    if (typeof storedData?.weekSettingId !== 'undefined') {
         setStoreOrigin('weekSettingId', storedData.weekSettingId);
+        weekNeedsToSave = false;
+    }
 
 
     // Wait for days
