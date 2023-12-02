@@ -27,42 +27,42 @@ export const BookingGridItem = (props: Props) => {
     const isRecording = () => recorderStore().bookingId() === props.booking.id;
 
     return (
-        <div class="text-white mb-2 relative isolate">
+        <div class="text-white relative isolate border-b border-neutral-900/50">
             <Shimmer enable={isRecording()} class="bg-neutral-700" />
+
             <div class={clsx(
-                "bg-neutral-700 rounded-md overflow-hidden",
+                "bg-neutral-700 overflow-hidden",
                 isRecording() && 'outline outline-red-600/40 outline-1',
             )}>
-                <div class="flex flex-col bg-neutral-800/50  border-t-4 border-neutral-800">
-                    <div class="flex items-center justify-between gap-2 pl-3 pr-4">
-                        <span class="flex-1"></span>
-                        <div>
-                            <TimeBox value={props.booking.start}
-                                onChange={x => props.dayStore.setBookingStart(props.booking, x)}
-                                autofocus={props.isNew}
-                            />
-                        </div>
-                        <span>-</span>
-                        <div>
-                            <TimeBox value={props.booking.end}
-                                onChange={x => props.dayStore.setBookingEnd(props.booking, x)}
-                            />
-                        </div>
-                        <span class="flex-1 flex items-center justify-end">
-                            <button type='button' onclick={() => setShowMenuDialog(true)}>
-                                <FiMoreHorizontal size={12} />
-                            </button>
-                        </span>
-                    </div>
 
-                    <div class="flex-1 py-1">
-                        <ProjectPicker projectKey={props.booking.projectKey}
-                            onChange={x => props.dayStore.setBookingProjectKey(props.booking, x)}
-                        />
-                    </div>
+                <div class="flex items-stretch border-t-4 border-b border-neutral-900/50 bg-neutral-900/10 pr-1">
+
+                    <TimeBox value={props.booking.start}
+                        onChange={x => props.dayStore.setBookingStart(props.booking, x)}
+                        autofocus={props.isNew}
+                    />
+                    <span class="flex items-center bg-neutral-900/50">-</span>
+                    <TimeBox value={props.booking.end}
+                        onChange={x => props.dayStore.setBookingEnd(props.booking, x)}
+                    />
+
+                    <ProjectPicker projectKey={props.booking.projectKey}
+                        onChange={x => props.dayStore.setBookingProjectKey(props.booking, x)}
+                        class="flex-1 py-2 pl-2 pr-1"
+                    />
+
+                    <span class="flex items-center justify-end">
+                        <button type='button' onclick={() => setShowMenuDialog(true)}
+                            title={t('form.alt.more')}
+                            class="text-slate-300 hover:bg-white/20 p-1 rounded-md"
+                        >
+                            <FiMoreHorizontal size={12} />
+                        </button>
+                    </span>
+
                 </div>
 
-                <div class="text-xs p-1">
+                <div class="text-xs pb-1">
                     <TextArea value={props.booking.text} placeholder={t('booking.emptyText')}
                         onChange={x => props.dayStore.setBookingText(props.booking, x)}
                     />

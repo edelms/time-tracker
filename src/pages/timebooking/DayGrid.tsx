@@ -44,7 +44,7 @@ export const DayGrid = () => {
     return (
         <div class="relative">
 
-            <div class="swiper py-4 px-2 -mx-2">
+            <div class="swiper py-4 px-2 -mx-2 -mt-4">
                 <div class="swiper-wrapper">
                     <For each={days()}>
                         {dayDate => (

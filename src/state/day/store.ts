@@ -79,6 +79,16 @@ export const createDayStore = async (dayDate: Date) => {
         bookings: () => store.bookings.concat([]).sort(firstBy(x => x.start)),
         bookingById: (id: string) => store.bookings.find(x => x.id === id),
 
+        bookingsWithGaps: () => {
+            const bookings: (Timebooking | undefined)[] = store.bookings.concat([]).sort(firstBy(x => x.start));
+            for (let i = bookings.length - 1; i > 0; i--) {
+                const hasGap = (bookings[i]?.start ?? 0) > (bookings[i - 1]?.end ?? 0);
+                if (hasGap)
+                    bookings.splice(i, 0, undefined);
+            }
+            return bookings;
+        },
+
         addBooking: (data) => {
 
             const endOfLastBooking =

@@ -17,6 +17,7 @@ export type DayMode = 'office' | 'homeoffice' | 'free';
 export type DayStoreAccessor = {
     id(): string;
     bookings(): Timebooking[];
+    bookingsWithGaps(): (Timebooking | undefined)[];
     bookingById(id: string): Timebooking | undefined;
 
     addBooking(data: Partial<Timebooking>): Timebooking;

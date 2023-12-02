@@ -9,6 +9,7 @@ import { t } from "@/i18n";
 type Props = {
     projectKey: string;
     onChange(projectKey: string): void;
+    class?: string;
 }
 
 export const ProjectPicker = (props: Props) => {
@@ -35,7 +36,7 @@ export const ProjectPicker = (props: Props) => {
     }
 
     return (
-        <div class="flex items-center justify-between px-3 py-1">
+        <div class={clsx("flex items-center justify-between", props.class)}>
             <span class={clsx(
                 props.projectKey && '',
                 !props.projectKey && 'text-neutral-500',
@@ -43,8 +44,8 @@ export const ProjectPicker = (props: Props) => {
                 {props.projectKey || t('project.empty')}
             </span>
 
-            <button type='button' onclick={handleOpen}
-                class="hover:bg-white/20 p-1 rounded-md"
+            <button type='button' onclick={handleOpen} title={t('form.alt.selectProject')}
+                class="text-slate-300 hover:bg-white/20 p-1 rounded-md"
             >
                 <TbSelect />
             </button>

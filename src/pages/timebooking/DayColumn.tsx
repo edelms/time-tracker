@@ -37,7 +37,7 @@ export const DayColumn = (props: Props) => {
     const today = () => isToday(props.date);
 
     return (
-        <div class="flex-grow-0 flex-shrink-0 swiper-slidec relative transition-transform bg-neutral-700 text-white rounded-md w-80 flex flex-col items-stretch justify-stretch">
+        <div class="flex-grow-0 flex-shrink-0 swiper-slidec relative transition-transform bg-neutral-700 text-white rounded-md w-96 flex flex-col items-stretch justify-stretch">
             <h3 class="relative bg-neutral-800 text-center text-lg px-4 py-2 rounded-t-md">
                 <span class="font-semibold">{localeStrings().shortWeekday[props.date.getDay()]}</span>
                 &nbsp;
@@ -74,13 +74,21 @@ export const DayColumn = (props: Props) => {
                     }
                 />
 
-                <div class="flex-1 flex flex-col gap-1 text-sm">
+                <div class="flex-1 flex flex-col text-sm">
 
-                    <For each={dayStore()?.bookings()}>
+                    <For each={dayStore()?.bookingsWithGaps()}>
                         {booking => (
-                            <BookingGridItem booking={booking} dayStore={dayStore()!}
-                                isNew={newId() === booking.id}
+                            <Show when={booking}
+                                children={
+                                    <BookingGridItem booking={booking!} dayStore={dayStore()!}
+                                        isNew={newId() === booking!.id}
+                                    />
+                                }
+                                fallback={
+                                    <div class="h-6" />
+                                }
                             />
+
                         )}
                     </For>
                 </div>
