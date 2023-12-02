@@ -164,6 +164,10 @@ const dict = {
             restore: 'Restore',
             clearAll: 'Clear All',
         },
+        alt: {
+            selectProject: 'Select Project',
+            more: 'More',
+        }
     },
 };
 

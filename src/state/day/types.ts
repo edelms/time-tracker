@@ -1,3 +1,5 @@
+import { WeekSetting } from "@data/week-setting/types";
+
 export type Timebooking = {
     id: string;
 
@@ -17,6 +19,7 @@ export type DayMode = 'office' | 'homeoffice' | 'free';
 export type DayStoreAccessor = {
     id(): string;
     bookings(): Timebooking[];
+    bookingsWithGaps(): (Timebooking | undefined)[];
     bookingById(id: string): Timebooking | undefined;
 
     addBooking(data: Partial<Timebooking>): Timebooking;
@@ -31,4 +34,5 @@ export type DayStoreAccessor = {
     toggleDayMode(): void;
 
     calcTotalHours(): number;
+    calcQuotaHours(weekSetting: WeekSetting | undefined): number;
 }

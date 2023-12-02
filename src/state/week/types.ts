@@ -11,4 +11,5 @@ export type WeekStoreAccessor = {
     setWeekSettingId(id: string): void;
 
     calcTotalHours(): number;
+    calcQuotaHours(): number;
 }

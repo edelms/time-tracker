@@ -3,7 +3,6 @@ import clsx from "clsx";
 
 import { DayStoreAccessor } from "@data/day/types";
 import { useViewingWeekStore } from "@data/week/context-viewing";
-import { useWeekSettingStore } from "@data/week-setting/context";
 import { t } from "@/i18n";
 
 type Props = {
@@ -14,17 +13,8 @@ type Props = {
 export const StatsForDay = (props: Props) => {
 
     const weekStore = useViewingWeekStore();
-    const weekSettingStore = useWeekSettingStore();
-
-    const hoursQuota = createMemo(
-        () => props.dayStore.isFree() || !weekStore().weekSetting()
-            ? 0
-            : weekSettingStore().calcDayHours(weekStore().weekSetting()!, props.day.getDay() as Day)
-    );
-
-    const hoursActual = createMemo(
-        () => props.dayStore.calcTotalHours()
-    );
+    const hoursQuota = createMemo(() => props.dayStore.calcQuotaHours(weekStore().weekSetting()));
+    const hoursActual = createMemo(() => props.dayStore.calcTotalHours());
 
     const percent = createMemo(
         () => props.dayStore.isFree() || hoursQuota() === 0

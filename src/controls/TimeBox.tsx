@@ -41,7 +41,7 @@ export const TimeBox = (props: Props) => {
         <input ref={input} type='text' value={formatTime(props.value)} size={1}
             onchange={e => handleChange(e.currentTarget.value)}
             onfocus={handleFocus}
-            class="bg-neutral-900/50 text-inherit w-auto min-w-0 px-3 py-1 text-center rounded-sm outline outline-1 outline-transparent invalid:outline-red-600"
+            class="bg-neutral-900/50 text-inherit w-auto min-w-0 px-2 py-1 text-center rounded-sm outline outline-1 outline-transparent invalid:outline-red-600"
         />
     );
 

@@ -7,7 +7,7 @@ type Props = {
 
 export const DialogHeader = (props: Props) => {
     return (
-        <h3 class="text-lg px-4 py-2 border-b border-neutral-500 flex items-center justify-between">
+        <h3 class="text-base px-4 py-2 border-b border-neutral-500 flex items-center justify-between">
             <span>{props.text}</span>
             {props.right}
         </h3>
