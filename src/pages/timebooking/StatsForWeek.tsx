@@ -2,7 +2,6 @@ import { Show, createMemo } from "solid-js";
 import clsx from "clsx";
 import { TbSettings } from "solid-icons/tb";
 
-import { useWeekSettingStore } from "@data/week-setting/context";
 import { useViewingWeekStore } from "@data/week/context-viewing";
 import { t } from "@/i18n";
 
@@ -10,10 +9,8 @@ import { t } from "@/i18n";
 export const StatsForWeek = () => {
 
     const weekStore = useViewingWeekStore();
-    const weekSettingStore = useWeekSettingStore();
-
     const hoursActual = createMemo(() => weekStore().calcTotalHours());
-    const hoursQuota = createMemo(() => weekStore().weekSetting() ? weekSettingStore().calcWeekHours(weekStore().weekSetting()!) : 0);
+    const hoursQuota = createMemo(() => weekStore().calcQuotaHours());
 
     const percent = createMemo(
         () => weekStore().weekSetting() && hoursQuota() > 0

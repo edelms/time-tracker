@@ -78,6 +78,14 @@ export const createWeekStore = async (weekDate: Date) => {
         },
 
         calcTotalHours: () => days.reduce((sum, x) => sum + x.calcTotalHours(), 0),
+
+        calcQuotaHours: () => {
+            if (!store.weekSettingId) return 0;
+            const weekSetting = weekSettingStore().byId(store.weekSettingId);
+            if (!weekSetting) return 0;
+
+            return days.reduce((sum, day) => sum + day.calcQuotaHours(weekSetting), 0);
+        },
     };
     return accessor;
 }

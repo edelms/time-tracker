@@ -1,12 +1,14 @@
 import { batch, createEffect, createSignal, on } from "solid-js";
 import { createStore } from "solid-js/store";
 import { get, set } from "idb-keyval";
+import { firstBy } from "thenby";
 
 import { dayIdentifier } from "@/helpers/time";
+import { WeekSetting } from "@data/week-setting/types";
+import { useWeekSettingStore } from "@data/week-setting/context";
 
 import { IDB_KEYS, idbStore } from "../idb-stores";
 import { DayStoreAccessor, DayMode, Timebooking } from "./types";
-import { firstBy } from "thenby";
 
 
 type DayStore = {
@@ -19,6 +21,9 @@ type DayStore = {
 
 export const createDayStore = async (dayDate: Date) => {
     const id = dayIdentifier(dayDate);
+
+    const weekSettingStore = useWeekSettingStore();
+
 
     const [store, setStoreOrigin] = createStore<DayStore>({
         id: id,
@@ -131,6 +136,13 @@ export const createDayStore = async (dayDate: Date) => {
         },
 
         calcTotalHours: () => store.bookings.reduce((sum, x) => sum += (Math.max(x.start, x.end) - Math.min(x.start, x.end)), 0) / 60,
+
+        calcQuotaHours: (weekSetting: WeekSetting | undefined) => {
+            if (store.dayMode === 'free') return 0;
+            if (!weekSetting) return 0;
+            return weekSettingStore().calcDayHours(weekSetting, dayDate.getDay() as Day);
+        },
+
     };
     return accessor;
 }

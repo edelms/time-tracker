@@ -1,3 +1,5 @@
+import { WeekSetting } from "@data/week-setting/types";
+
 export type Timebooking = {
     id: string;
 
@@ -32,4 +34,5 @@ export type DayStoreAccessor = {
     toggleDayMode(): void;
 
     calcTotalHours(): number;
+    calcQuotaHours(weekSetting: WeekSetting | undefined): number;
 }
