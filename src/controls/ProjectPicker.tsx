@@ -45,9 +45,9 @@ export const ProjectPicker = (props: Props) => {
             </span>
 
             <button type='button' onclick={handleOpen} title={t('form.alt.selectProject')}
-                class="text-slate-300 hover:bg-white/20 p-1 rounded-md"
+                class="text-slate-400 hover:bg-white/20 w-8 h-8 m-2 rounded-md flex items-center justify-center"
             >
-                <TbSelect />
+                <TbSelect size={16} />
             </button>
 
             <dialog ref={dialog} onclick={handleClose} onClose={handleClose}

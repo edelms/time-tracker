@@ -54,6 +54,10 @@ const dict = {
             dialogHeader: 'Edit Booking',
             removeConfirm: 'Remove this booking?',
         },
+        label: {
+            startTime: 'Start time',
+            endTime: 'End time',
+        },
     },
 
     dataManagement: {
@@ -163,6 +167,7 @@ const dict = {
             backup: 'Backup',
             restore: 'Restore',
             clearAll: 'Clear All',
+            addBooking: 'Add Booking',
         },
         alt: {
             selectProject: 'Select Project',
