@@ -94,7 +94,7 @@ export const DayColumn = (props: Props) => {
                 </div>
 
                 <div class="text-center px-4 py-2">
-                    <button type='button' onclick={handleAddBooking}
+                    <button type='button' onclick={handleAddBooking} title={t('form.button.addBooking')}
                         class="px-2 py-2 hover:bg-neutral-900 rounded-full"
                     >
                         <FiPlus />
