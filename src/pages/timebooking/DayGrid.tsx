@@ -33,8 +33,8 @@ export const DayGrid = () => {
             slidesPerView: 'auto',
 
             centeredSlides: true,
-            centeredSlidesBounds: true,
-            centerInsufficientSlides: true,
+            // centeredSlidesBounds: true,
+            // centerInsufficientSlides: true,
 
             slideClass: 'swiper-slidec',
         });
