@@ -1,12 +1,14 @@
 import { onMount } from "solid-js";
 import { formatTime, parseTime } from "../helpers/time";
 import { t } from "@/i18n";
+import clsx from "clsx";
 
 type Props = {
     value: number;
     onChange?(newValue: number): void;
     autofocus?: boolean;
     placeholder?: string;
+    class?: string;
 }
 
 export const TimeBox = (props: Props) => {
@@ -43,7 +45,10 @@ export const TimeBox = (props: Props) => {
             placeholder={props.placeholder}
             onchange={e => handleChange(e.currentTarget.value)}
             onfocus={handleFocus}
-            class="bg-neutral-900/50 text-inherit w-auto min-w-0 px-2 py-1 text-center rounded-sm outline outline-1 outline-transparent invalid:outline-red-600"
+            class={clsx(
+                "bg-neutral-900/50 text-inherit w-auto min-w-0 px-2 py-1 text-center rounded-sm outline outline-1 outline-transparent invalid:outline-red-600",
+                props.class
+            )}
         />
     );
 

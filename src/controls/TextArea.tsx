@@ -1,10 +1,12 @@
+import clsx from "clsx";
 import { onMount } from "solid-js";
 
 type Props = {
     value: string;
     onChange?(newValue: string): void;
-    
+
     placeholder?: string;
+    class?: string;
 }
 
 export const TextArea = (props: Props) => {
@@ -27,7 +29,10 @@ export const TextArea = (props: Props) => {
     return (
         <textarea ref={textarea} placeholder={props.placeholder} oninput={autogrow}
             value={props.value} onchange={e => handleChange(e.currentTarget.value)}
-            class="bg-transparent text-inherit border-none w-full px-2 py-1 resize-none placeholder:text-neutral-500"
+            class={clsx(
+                "bg-transparent text-inherit border-none w-full px-2 py-1 resize-none placeholder:text-neutral-500",
+                props.class
+            )}
         />
     );
 }
