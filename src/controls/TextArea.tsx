@@ -27,7 +27,7 @@ export const TextArea = (props: Props) => {
     onMount(() => autogrow());
 
     return (
-        <textarea ref={textarea} placeholder={props.placeholder} oninput={autogrow}
+        <textarea data-testid="text-area" ref={textarea} placeholder={props.placeholder} oninput={autogrow}
             value={props.value} onchange={e => handleChange(e.currentTarget.value)}
             class={clsx(
                 "bg-transparent text-inherit border-none w-full px-2 py-1 resize-none placeholder:text-neutral-500",

@@ -17,7 +17,7 @@ export const ProjectsDialog = (props: Props) => {
 
     return (
         <Dialog show={props.show} onClose={handleClose}>
-            <div class="min-w-[34rem]">
+            <div data-testid="projects-dialog" class="min-w-[34rem]">
                 <DialogHeader text={t('project.list.dialogHeader')} />
                 <ProjectList />
             </div>

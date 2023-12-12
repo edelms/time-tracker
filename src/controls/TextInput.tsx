@@ -12,6 +12,7 @@ type Props = {
 
     showValidation?: boolean;
     validationError?: string;
+    testId?: string;
 }
 
 export const TextInput = (props: Props) => {
@@ -29,7 +30,7 @@ export const TextInput = (props: Props) => {
                 <span class="text-opacity-70 text-white px-3">{props.label}</span>
             )}
 
-            <input ref={inputRef} type='text'
+            <input ref={inputRef} data-testid={props.testId} type='text'
                 placeholder={props.placeholder} id={props.id} autofocus={props.autofocus}
                 value={props.value}
                 onChange={!props.immediate ? (e => props.onChange?.(e.currentTarget.value)) : undefined}

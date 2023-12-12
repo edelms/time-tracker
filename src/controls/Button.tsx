@@ -8,6 +8,7 @@ type Props = {
     type?: 'button' | 'submit';
     variant?: 'default' | 'success' | 'danger';
     class?: string;
+    testId?: string;
     onClick?(): void;
 }
 
@@ -22,7 +23,7 @@ export const Button = (props: Props) => {
     }
 
     return (
-        <button type={type()} onClick={handleClick} title={props.title}
+        <button role="button" data-testid={props.testId} type={type()} onClick={handleClick} title={props.title}
             class={clsx(
                 "px-2 py-1 text-sm rounded-sm flex gap-1 items-center",
                 variant() === 'default' && 'bg-neutral-800/50',

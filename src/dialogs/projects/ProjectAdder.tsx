@@ -25,7 +25,6 @@ export const ProjectAdder = () => {
     });
 
     const handleAddProject = () => {
-
         if (!key()) {
             setKeyError(t('form.project.key.requiredError')!);
             return;
@@ -45,20 +44,20 @@ export const ProjectAdder = () => {
     }
 
     return (
-        <form onsubmit={handleAddProject}>
+        <form data-testid="project-adder" onsubmit={handleAddProject}>
             <div class="flex flex-col gap-1 text-sm">
                 <label for="new-project-key" class="px-2 font-semibold">{t('project.edit.createLabel')}</label>
 
                 <InputGroup>
 
                     <div class="w-1/3">
-                        <TextInput value={key()} onChange={setKey} placeholder={t('form.project.key.label')} id="new-project-key"
+                        <TextInput testId="key-input" value={key()} onChange={setKey} placeholder={t('form.project.key.label')} id="new-project-key"
                             showValidation={showValidation()}
                             validationError={keyError()}
                         />
                     </div>
 
-                    <TextInput value={name()} onChange={setName} placeholder={t('form.project.name.label')}
+                    <TextInput testId="name-input" value={name()} onChange={setName} placeholder={t('form.project.name.label')}
                         showValidation={showValidation()}
                     />
 
