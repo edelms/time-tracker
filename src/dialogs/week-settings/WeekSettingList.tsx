@@ -18,7 +18,7 @@ export const WeekSettingList = (props: Props) => {
     const weekSettingStore = useWeekSettingStore();
 
     return (
-        <div class="text-sm">
+        <div data-testid="week-setting-list" class="text-sm">
 
             <DialogHeader text={t('weeksetting.list.dialogHeader')} />
 
@@ -32,9 +32,9 @@ export const WeekSettingList = (props: Props) => {
             <ul class="divide-y divide-neutral-700">
                 <For each={weekSettingStore().all()}>
                     {(weekSetting) => (
-                        <li class="px-3 py-2 flex items-center gap-3">
+                        <li data-testid='item' class="px-3 py-2 flex items-center gap-3">
 
-                            <Button type='button' label={t('form.button.select')} icon={<TbPointer />}
+                            <Button testId="select-button" type='button' label={t('form.button.select')} icon={<TbPointer />}
                                 onClick={() => props.onSelect(weekSetting)}
                             />
 
@@ -45,7 +45,7 @@ export const WeekSettingList = (props: Props) => {
                                 </Show>
                             </span>
 
-                            <Button type='button' label={t('form.button.edit')} icon={<TbEdit />} variant="danger"
+                            <Button testId='edit-button' type='button' label={t('form.button.edit')} icon={<TbEdit />} variant="danger"
                                 onClick={() => props.onEdit(weekSetting)}
                             />
                         </li>
@@ -54,7 +54,7 @@ export const WeekSettingList = (props: Props) => {
             </ul>
 
             <div class="flex justify-end px-3 py-2 border-t border-neutral-700">
-                <Button type="button" label={t('form.button.add')} icon={<TbPlus />} variant="success" onClick={() => weekSettingStore().add({})} />
+                <Button type="button" testId='add-button' label={t('form.button.add')} icon={<TbPlus />} variant="success" onClick={() => weekSettingStore().add({})} />
             </div>
 
         </div>

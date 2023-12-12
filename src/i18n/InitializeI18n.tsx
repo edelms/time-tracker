@@ -6,7 +6,7 @@ import { Initializer } from "@/components/Initializer";
 import type en from "@/i18n/translations/en.js";
 
 type RawDictionary = typeof en;
-type Dictionary = i18n.Flatten<RawDictionary>;
+export type Dictionary = i18n.Flatten<RawDictionary>;
 
 export let t: NullableTranslator<Dictionary>;
 
@@ -51,3 +51,5 @@ export const InitializeI18n = (props: Props) => {
 
 
 }
+
+export const assignT = (newT: i18n.NullableTranslator<Dictionary>) => t = newT;

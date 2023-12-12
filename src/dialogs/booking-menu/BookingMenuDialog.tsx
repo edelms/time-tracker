@@ -22,12 +22,12 @@ export const BookingMenuDialog = (props: Props) => {
 
     return (
         <Dialog show={props.show} onClose={props.onClose}>
-            <div class="min-w-[34rem]">
+            <div data-testid="booking-menu-dialog" class="min-w-[34rem]">
                 <DialogHeader text={t('booking.edit.dialogHeader')} />
 
                 <ul class="flex items-center justify-center gap-3 p-3">
                     <li class="flex">
-                        <button type="button" onclick={handleRemove}
+                        <button data-testid="remove-button" type="button" onclick={handleRemove}
                             class="flex-1 hover:bg-neutral-100/5 px-5 py-3 flex items-center justify-center gap-2"
                         >
                             <IoTrash size={20} />

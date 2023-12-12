@@ -60,7 +60,7 @@ export const DataManagementDialog = (props: Props) => {
 
     return (
         <Dialog show={props.show} onClose={props.onClose}>
-            <div class="min-w-[34rem]">
+            <div data-testid="data-management-dialog" class="min-w-[34rem]">
                 <DialogHeader text={t('dataManagement.dialog.header')} />
 
                 <ul class="flex items-center justify-center gap-3 p-3">

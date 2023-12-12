@@ -51,14 +51,16 @@ export const ProjectCreator = (props: Props) => {
     }
 
     return (
-        <form onsubmit={handleCreate} class="flex flex-col gap-3 px-5 py-3 w-96 border border-sky-900 rounded-md">
+        <form data-testid="project-creator" onsubmit={handleCreate} class="flex flex-col gap-3 px-5 py-3 w-96 border border-sky-900 rounded-md">
             <TextInput value={projectKey()} onChange={setProjectKey} label={t('form.project.key.label')} placeholder={t('form.project.key.label')}
                 showValidation={!!projectKeyError() || !!projectNameError()}
                 validationError={projectKeyError()}
+                testId="key-input"
             />
             <TextInput value={projectName()} onChange={setProjectName} label={t('form.project.name.label')} placeholder={t('form.project.name.label')}
                 showValidation={!!projectKeyError() || !!projectNameError()}
                 validationError={projectNameError()}
+                testId="name-input"
             />
             <div class="flex justify-end">
                 <Button type="submit" label={t('form.button.add')} variant="success" onClick={handleCreate} />

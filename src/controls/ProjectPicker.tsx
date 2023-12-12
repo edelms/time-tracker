@@ -36,7 +36,7 @@ export const ProjectPicker = (props: Props) => {
     }
 
     return (
-        <div class={clsx("flex items-center justify-between", props.class)}>
+        <div data-testid="project-picker" class={clsx("flex items-center justify-between", props.class)}>
             <span class={clsx(
                 props.projectKey && '',
                 !props.projectKey && 'text-neutral-500',
@@ -44,7 +44,7 @@ export const ProjectPicker = (props: Props) => {
                 {props.projectKey || t('project.empty')}
             </span>
 
-            <button type='button' onclick={handleOpen} title={t('form.alt.selectProject')}
+            <button data-testid="select-button" type='button' onclick={handleOpen} title={t('form.alt.selectProject')}
                 class="text-slate-400 hover:bg-white/20 w-8 h-8 m-2 rounded-md flex items-center justify-center"
             >
                 <TbSelect size={16} />

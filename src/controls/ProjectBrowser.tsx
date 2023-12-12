@@ -32,26 +32,26 @@ export const ProjectBrowser = (props: Props) => {
     }
 
     return (
-        <div class="p-0.5 max-w-lg text-sm">
-            <TextInput value={search()} onChange={setSearch} placeholder={t('project.browser.search')} autofocus immediate />
+        <div data-testid="project-browser" class="p-0.5 max-w-lg text-sm">
+            <TextInput value={search()} onChange={setSearch} placeholder={t('project.browser.search')} autofocus immediate testId="project-searchbox" />
 
             <div class="flex flex-col gap-3 pt-3 pb-8 px-12">
 
                 <Show when={!hasSearch() && results().length > 0}>
-                    <h3 class="text-base tracking-wide text-center text-orange-500 pb-1">
+                    <h3 data-testid="recent-message" class="text-base tracking-wide text-center text-orange-500 pb-1">
                         {t('project.browser.info.recentlyUsed')}
                     </h3>
                 </Show>
 
                 <Show when={hasSearch() && results().length > 0}>
-                    <h3 class="text-base tracking-wide text-center text-lime-500 pb-1">
+                    <h3 data-testid="results-message" class="text-base tracking-wide text-center text-lime-500 pb-1">
                         {t('project.browser.info.someFound')}
                     </h3>
                 </Show>
 
                 <Show when={results().length === 0}>
                     <>
-                        <h3 class="text-base tracking-wide text-center text-sky-500 pb-1">
+                        <h3 data-testid="no-matches-message" class="text-base tracking-wide text-center text-sky-500 pb-1">
                             {t('project.browser.info.noProjects.message')}<br />
                             {t('project.browser.info.noProjects.createPrompt')}
                         </h3>

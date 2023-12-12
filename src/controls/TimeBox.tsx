@@ -1,7 +1,8 @@
 import { onMount } from "solid-js";
+import clsx from "clsx";
+
 import { formatTime, parseTime } from "../helpers/time";
 import { t } from "@/i18n";
-import clsx from "clsx";
 
 type Props = {
     value: number;
@@ -41,7 +42,7 @@ export const TimeBox = (props: Props) => {
     })
 
     return (
-        <input ref={input} type='text' value={formatTime(props.value)} size={1}
+        <input data-testid="time-box" ref={input} type='text' value={formatTime(props.value)} size={1}
             placeholder={props.placeholder}
             onchange={e => handleChange(e.currentTarget.value)}
             onfocus={handleFocus}

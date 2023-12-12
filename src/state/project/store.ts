@@ -55,7 +55,8 @@ export const createProjectStore = async () => {
             return recentProjects()
                 .keys()
                 .map(key => store.projects.find(x => x.key === key))
-                .filter(x => !!x) as Project[];
+                .filter(x => !!x)
+                .slice(0, 5) as Project[];
         },
 
         find: (search: string) => {

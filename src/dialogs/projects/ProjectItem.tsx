@@ -52,7 +52,7 @@ export const ProjectItem = (props: Props) => {
     }
 
     return (
-        <form>
+        <form data-testid="project-item">
             <InputGroup>
                 <div class="w-1/3">
                     <TextInput value={props.project.key} onChange={handleSetKey} placeholder={t('form.project.key.label')}
