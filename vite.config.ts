@@ -1,4 +1,8 @@
-import { defineConfig } from 'vite'
+/// <reference types="vite/client" />
+/// <reference types="vitest" />
+
+// import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import path from 'path';
 import solid from 'vite-plugin-solid'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -10,7 +14,8 @@ export default defineConfig({
             '@controls': path.resolve(__dirname, './src/controls'),
             '@data': path.resolve(__dirname, './src/state'),
             '@': path.resolve(__dirname, './src'),
-        }
+        },
+        conditions: ['development', 'browser'],
     },
     define: {
         APP_VERSION: JSON.stringify(process.env.npm_package_version),
@@ -57,5 +62,28 @@ export default defineConfig({
             }
         }),
     ],
-
+    test: {
+        environment: "jsdom",
+        deps: {
+            // inline: [/solid-js/],
+            optimizer: {
+                web: {
+                    exclude: ['solid-js'],
+                },
+            },
+        },
+        // globals: true,
+        setupFiles: [
+            // 'node_modules/@testing-library/jest-dom',
+            // @testing-library/jest-dom ?
+            // '@testing-library/jest-dom',
+            'fake-indexeddb/auto',
+            './vitest-setup.ts'
+        ],
+        // transformMode: { web: [/\.[jt]sx?$/] },
+        coverage: {
+            enabled: true,
+            provider: 'v8',
+        },
+    },
 })
