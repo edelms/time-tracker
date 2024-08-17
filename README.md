@@ -24,10 +24,12 @@ Personal work time tracking application
 [<img height="48" width="48" src="https://cdn.simpleicons.org/Vite" />](https://vitejs.dev/)
 
 
-## Roadmap
+## Roadmap / TODOs
 
 - [x] Multi-language
     - [ ] German
+- [ ] Test coverage
+- [ ] Fix UI issues (swiper, ...)
 - [ ] Advanced statistics / analyze features
 
 
