@@ -1,6 +1,8 @@
 import { createStore } from "idb-keyval";
 
-export const idbStore = createStore('personal-time-tracker', 'data');
+export let idbStore = createStore('personal-time-tracker', 'data');
+
+export const resetIdbStore = () => idbStore = createStore('personal-time-tracker', 'data');
 
 const keys = {
     PROJECTS: 'projects.all',

@@ -38,11 +38,8 @@ export const ViewingWeekProvider = (props: ProviderProps) => {
             );
 
             if (isCurrentWeek) {
-                console.log('REUSE current week');
                 return data.currentWeek;
             }
-
-            console.log('INSTANCE viewing week', data.viewingDate);
             return createWeekStore(data.viewingDate);
         }
     );

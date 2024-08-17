@@ -1,3 +1,6 @@
+/// <reference types="vite/client" />
+/// <reference types="vitest" />
+
 import { defineConfig } from 'vite'
 import path from 'path';
 import solid from 'vite-plugin-solid'
@@ -10,7 +13,8 @@ export default defineConfig({
             '@controls': path.resolve(__dirname, './src/controls'),
             '@data': path.resolve(__dirname, './src/state'),
             '@': path.resolve(__dirname, './src'),
-        }
+        },
+        conditions: ['development', 'browser'],
     },
     define: {
         APP_VERSION: JSON.stringify(process.env.npm_package_version),
@@ -57,5 +61,22 @@ export default defineConfig({
             }
         }),
     ],
-
+    test: {
+        environment: "jsdom",
+        deps: {
+            optimizer: {
+                web: {
+                    exclude: ['solid-js'],
+                },
+            },
+        },
+        setupFiles: [
+            'fake-indexeddb/auto',
+            './vitest-setup.ts'
+        ],
+        coverage: {
+            enabled: true,
+            provider: 'v8',
+        },
+    },
 })

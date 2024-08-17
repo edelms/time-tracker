@@ -30,7 +30,7 @@ export const WeekSettingsDialog = (props: Props) => {
 
     return (
         <Dialog show={props.show} onClose={handleClose}>
-            <div class="min-w-[34rem]">
+            <div data-testid="week-settings-dialog" class="min-w-[34rem]">
                 <Show when={!editingSetting()}>
                     <WeekSettingList onEdit={x => setEditingSetting(x)} onSelect={handleSelect} />
                 </Show>
